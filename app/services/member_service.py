@@ -21,6 +21,6 @@ async def create_member(db: Session, member: MemberBase):
 
 # remove_member คือ function สำหรับลบข้อมูล member จาก database
 async def remove_member(db: Session, id: int):
-    _member = find_member_by_id(db=db, id=id)
+    _member = await find_member_by_id(db=db, id=id)
     db.delete(_member)
     db.commit()

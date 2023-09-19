@@ -1,0 +1,25 @@
+
+# ดึงข้อมูลสมาชิกจากฐานข้อมูล โดยไม่มีการทำ Caching
+GET http://localhost:8000/member/ HTTP/1.1
+
+###
+
+# ดึงข้อมูลสมาชิกจากฐานข้อมูล โดยมีการทำ Caching
+GET http://localhost:8000/member/cache HTTP/1.1
+
+###
+
+# เพิ่มข้อมูลสมาชิก
+POST http://localhost:8000/member/ HTTP/1.1
+content-type: application/json
+
+{
+    "email": "your email",
+    "firstname": "your firstname",
+    "lastname": "your lastname"
+}
+
+###
+
+# ลบข้อมูลสมาชิก โดยการส่ง ID ไป
+DELETE http://localhost:8000/member/1 HTTP/1.1
