@@ -18,7 +18,7 @@ r = get_redis()
 # กำหนด path ให้ เมื่อเข้ามาที่ http://[myhost]:[myport]/member จะไปทำงาน function get_all_member
 @router.get("/")
 async def get_all_member(db: Session=Depends(get_db)):
-    _members = member_service.find_member(db)
+    _members = await member_service.find_member(db)
     return { "status": True, "data": _members }
 
 # กำหนด path ให้ เมื่อเข้ามาที่ http://[myhost]:[myport]/member/cache จะไปทำงาน function get_all_member_cache
@@ -38,11 +38,11 @@ async def get_all_member_cache(db: Session=Depends(get_db)):
 # กำหนด path ให้ เมื่อส่งค่าไปแบบ POST มาที่ http://[myhost]:[myport]/member จะไปทำงาน function create_member
 @router.post("/", status_code=201)
 async def create_member(item: MemberBase, db: Session=Depends(get_db)):
-    _member = member_service.create_member(db, item)
+    _member = await member_service.create_member(db, item)
     return { "status": True, "data": _member }
 
 # กำหนด path ให้ เมื่อส่งค่าไปแบบ DELETE มาที่ http://[myhost]:[myport]/member จะไปทำงาน function delete_member
 @router.delete("/{id}", status_code=204)
 async def delete_member(id: int, db: Session=Depends(get_db)):
-    member_service.remove_member(db, id)
+    await member_service.remove_member(db, id)
     return { "status": True }
